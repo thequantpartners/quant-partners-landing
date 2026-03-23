@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { Lock, ArrowRight, CheckCircle2, XCircle } from "lucide-react";
+import { isGibberish } from "@/utils/textValidation";
 
 export const IClosedWizard = () => {
   const TOTAL_STEPS = 15;
@@ -52,17 +53,17 @@ export const IClosedWizard = () => {
 
   const validateStep = () => {
     switch(currentStep) {
-      case 1: return data.name.trim().length > 0 && data.phone.trim().length >= 6;
+      case 1: return data.name.trim().length > 0 && !isGibberish(data.name) && data.phone.trim().length >= 6;
       case 2: return data.email.includes("@") && !!data.q1_role;
       case 3: return !!data.q2_inventory;
       case 4: return !!data.q3_time;
       case 5: return data.q4_channels.length > 0;
-      case 6: return data.q5_past_fail.trim().length >= 5;
+      case 6: return data.q5_past_fail.trim().length >= 5 && !isGibberish(data.q5_past_fail);
       case 7: return !!data.q6_investment;
       case 8: return !!data.q7_budget;
-      case 9: return data.q8_system.trim().length >= 5;
-      case 10: return data.q9_recent_sale.trim().length >= 5;
-      case 11: return data.q10_mentor.trim().length >= 2;
+      case 9: return data.q8_system.trim().length >= 5 && !isGibberish(data.q8_system);
+      case 10: return data.q9_recent_sale.trim().length >= 5 && !isGibberish(data.q9_recent_sale);
+      case 11: return data.q10_mentor.trim().length >= 2 && !isGibberish(data.q10_mentor);
       case 12: return !!data.q11_reaction;
       case 13: return !!data.q12_team;
       case 14: return !!data.q13_response;
