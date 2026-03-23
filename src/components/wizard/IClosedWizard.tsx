@@ -194,7 +194,7 @@ export const IClosedWizard = () => {
         return (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight mb-2">Comencemos</h2>
+              <h2 className="text-2xl font-bold tracking-tight mb-2">QP | Llamada de Auditoria [VSL-QP]</h2>
               <p className="text-muted-foreground text-sm">
                 Datos básicos para contacto.
               </p>
@@ -636,7 +636,7 @@ export const IClosedWizard = () => {
                 <>
                   <h3 className="text-3xl font-bold text-foreground mb-4">Agenda Bloqueada</h3>
                   <p className="text-muted-foreground max-w-md text-base leading-relaxed">
-                    Completa el proceso de calificación para demostrar que tu perfil cumple con nuestros estándares y desbloquear la agenda.
+                    Por favor complete el formulario antes de elegir su franja horaria.
                   </p>
                 </>
               )}
