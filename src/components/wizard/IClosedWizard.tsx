@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { Lock, ArrowRight, CheckCircle2, XCircle } from "lucide-react";
 import { isGibberish, isGibberishPhone } from "@/utils/textValidation";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export const IClosedWizard = () => {
   const TOTAL_STEPS = 15;
@@ -208,19 +209,29 @@ export const IClosedWizard = () => {
             <div className="space-y-4">
               <div className="grid gap-2">
                 <div className="flex h-12 rounded-md overflow-hidden bg-secondary/50 border border-border/50 transition-all duration-300 hover:border-accent/50 focus-within:border-accent focus-within:ring-1 focus-within:ring-accent">
-                   <select 
-                     value={data.phoneCode}
-                     onChange={(e) => updateData({ phoneCode: e.target.value })}
-                     className="bg-transparent border-r border-border/50 px-3 outline-none text-muted-foreground text-sm cursor-pointer"
-                   >
-                     <option value="+51">🇵🇪 +51</option>
-                     <option value="+52">🇲🇽 +52</option>
-                     <option value="+54">🇦🇷 +54</option>
-                     <option value="+56">🇨🇱 +56</option>
-                     <option value="+57">🇨🇴 +57</option>
-                     <option value="+34">🇪🇸 +34</option>
-                     <option value="+1">🇺🇸 +1</option>
-                   </select>
+                   <Select value={data.phoneCode} onValueChange={(val) => updateData({ phoneCode: val })}>
+                     <SelectTrigger className="w-[115px] bg-transparent border-0 border-r border-border/50 rounded-none h-full outline-none text-muted-foreground text-xs font-medium focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:outline-none uppercase tracking-wider">
+                       <SelectValue placeholder="País" />
+                     </SelectTrigger>
+                     <SelectContent className="bg-[#111] border-border z-[100]">
+                       {[
+                         { code: '+51', iso: 'pe', label: 'PE' },
+                         { code: '+52', iso: 'mx', label: 'MX' },
+                         { code: '+54', iso: 'ar', label: 'AR' },
+                         { code: '+56', iso: 'cl', label: 'CL' },
+                         { code: '+57', iso: 'co', label: 'CO' },
+                         { code: '+34', iso: 'es', label: 'ES' },
+                         { code: '+1',  iso: 'us', label: 'US' },
+                       ].map(c => (
+                         <SelectItem key={c.code} value={c.code} className="cursor-pointer hover:bg-secondary focus:bg-secondary">
+                           <div className="flex items-center gap-2">
+                             <img src={`https://flagcdn.com/w20/${c.iso}.png`} alt={c.label} className="w-4 h-auto rounded-sm opacity-90 shadow-sm" />
+                             <span className="font-medium text-xs uppercase tracking-widest text-muted-foreground">{c.label} {c.code}</span>
+                           </div>
+                         </SelectItem>
+                       ))}
+                     </SelectContent>
+                   </Select>
                    <Input 
                      type="tel"
                      placeholder="Número de teléfono *" 
