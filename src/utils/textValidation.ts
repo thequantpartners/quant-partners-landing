@@ -18,9 +18,9 @@ export function isGibberish(text: string): boolean {
     return true;
   }
 
-  // 2. Repeated characters (e.g., 'aaaaa', 'ssssss')
-  // 4 or more of the exact same character in a row
-  if (/(.)\1{4,}/.test(normalized)) return true;
+  // 2. Repeated characters (e.g., 'aaaa', 'sss')
+  // 3 or more of the exact same character in a row
+  if (/(.)\1{2,}/.test(normalized)) return true;
 
   // 3. Common keyboard mashing patterns
   const mashingPatterns = ["asdf", "qwerty", "zxcv", "qwer", "hjkl", "jklñ", "uiop", "vbnm", "dfgh", "zxcvbn"];

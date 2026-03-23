@@ -54,7 +54,7 @@ export const IClosedWizard = () => {
   const validateStep = () => {
     switch(currentStep) {
       case 1: return data.name.trim().length > 0 && !isGibberish(data.name) && data.phone.trim().length >= 6;
-      case 2: return data.email.includes("@") && !!data.q1_role;
+      case 2: return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim()) && !isGibberish(data.email.split('@')[0]) && !!data.q1_role;
       case 3: return !!data.q2_inventory;
       case 4: return !!data.q3_time;
       case 5: return data.q4_channels.length > 0;
