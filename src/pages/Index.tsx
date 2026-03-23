@@ -19,26 +19,23 @@ const Index = () => {
         </p>
 
         <p className="text-base md:text-lg text-white/90 mb-6 leading-relaxed">
-          Más de <span className="text-foreground underline underline-offset-4 font-semibold">$2.8M USD</span> en inventario inmobiliario convertido en liquidez para desarrolladores en Perú.
+          <span className="text-white underline underline-offset-4 font-medium">+$2.8 000 000 USD</span> en inventario inmobiliario capitalizado para <span className="text-white underline underline-offset-4 font-medium">Desarrolladores en Perú</span>.
         </p>
 
         <h1
-          className="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.1] mb-6 text-balance text-white"
+          className="text-3xl sm:text-5xl md:text-[3.4rem] font-bold leading-[1.15] mb-6 text-balance text-white"
           style={{ letterSpacing: "-0.02em" }}
         >
-          Convertimos Tu Inventario Detenido en{" "}
-          <span className="underline decoration-2 underline-offset-4">Ventas Reales</span>{" "}
-          en 90 Días
+          Aumentaremos entre{" "}
+          <span className="underline decoration-2 underline-offset-8">$500.000 a $2 000 000 USD</span>{" "}
+          a tu Facturación{" "}
+          <span className="underline decoration-2 underline-offset-8">Capitalizando</span>{" "}
+          Tu Inventario Detenido en solo{" "}
+          <span className="underline decoration-2 underline-offset-8">90 Días</span>.
         </h1>
 
-        <p className="text-base sm:text-xl text-white/90 max-w-3xl mx-auto mb-8 leading-relaxed">
-          Sin depender de brokers, sin leads basura, sin promesas vacías.
-          <br />
-          Instalamos el{" "}
-          <span className="text-foreground font-semibold underline underline-offset-4">
-            Sistema Quant™
-          </span>{" "}
-          directamente en tu operación comercial.
+        <p className="text-base sm:text-xl text-white/90 max-w-4xl mx-auto mb-10 leading-relaxed md:leading-snug">
+          <span className="underline underline-offset-4 text-white font-medium">Construiremos todo por ti</span> y te mentorizamos 1 a 1 en como gestionar el sistema con procesos, inteligencia artificial para que no dependas de nosotros.
         </p>
 
         {/* STEP 1 */}
