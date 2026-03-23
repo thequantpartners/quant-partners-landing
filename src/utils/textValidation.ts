@@ -51,3 +51,28 @@ export function isGibberish(text: string): boolean {
 
   return false;
 }
+
+/**
+ * Utility to validate phone numbers and detect spam attempts like "999999999" or "12345678".
+ * Returns true if the phone is suspicious or invalid.
+ */
+export function isGibberishPhone(phone: string, countryCode: string): boolean {
+  const digits = phone.replace(/\D/g, ""); // extract only digits
+
+  if (digits.length < 6 || digits.length > 15) return true;
+
+  // 1. Too many identical digits in a row (e.g. 999999, 000000, 111111)
+  // We allow up to 4 just in case someone has a number like 9999 1234
+  if (/(.)\1{5,}/.test(digits)) return true;
+
+  // 2. Sequences like 123456 or 987654
+  if (digits.includes("123456") || digits.includes("987654") || digits.includes("012345")) return true;
+
+  // 3. Country Specific basic validation (Perú)
+  if (countryCode === "+51") {
+    // Peru numbers must start with 9 and have exactly 9 digits.
+    if (!digits.startsWith("9") || digits.length !== 9) return true;
+  }
+
+  return false;
+}
