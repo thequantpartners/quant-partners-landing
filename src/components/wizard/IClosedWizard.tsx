@@ -530,10 +530,6 @@ export const IClosedWizard = () => {
         return (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div>
-              <p className="text-xs tracking-wider text-accent uppercase mb-2">Paso Final: Verificación</p>
-              <h2 className="text-2xl font-bold tracking-tight mb-4 leading-tight text-white">
-                Consentimiento Estricto
-              </h2>
               <div className="bg-destructive/10 border-l-4 border-destructive p-4 rounded-r-lg mb-6">
                 <p className="text-sm text-foreground/90 leading-relaxed font-medium">
                   Te CONTACTAREMOS por WhatsApp o Llamada para CONFIRMAR tu cita. Si no respondes, tendremos que cancelar la llamada. Esto lo hacemos por que estamos recibiendo muchas agendas falsas así que simplemente necesitamos confirmar que eres una persona real. (Odiamos tener que ser tan estrictos, pero tenemos que limpiar nuestra agenda de llamadas SPAM) *
