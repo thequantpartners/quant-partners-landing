@@ -10,7 +10,7 @@ import Cal, { getCalApi } from "@calcom/embed-react";
 import { Lock, ArrowRight, CheckCircle2, XCircle } from "lucide-react";
 
 export const IClosedWizard = () => {
-  const TOTAL_STEPS = 14;
+  const TOTAL_STEPS = 15;
   const [currentStep, setCurrentStep] = useState(1);
   const [score, setScore] = useState(0);
   const [isDisqualified, setIsDisqualified] = useState(false);
@@ -35,6 +35,7 @@ export const IClosedWizard = () => {
     q11_reaction: "",
     q12_team: "",
     q13_response: "",
+    q14_consent: "",
   });
 
   useEffect(() => {
@@ -52,19 +53,20 @@ export const IClosedWizard = () => {
   const validateStep = () => {
     switch(currentStep) {
       case 1: return data.name.trim().length > 0 && data.phone.trim().length >= 6;
-      case 2: return data.email.includes("@") && data.q1_role;
-      case 4: return !!data.q2_inventory;
-      case 5: return !!data.q3_time;
-      case 6: return data.q4_channels.length > 0;
-      case 7: return data.q5_past_fail.trim().length >= 5;
-      case 8: return !!data.q6_investment;
-      case 9: return !!data.q7_budget;
-      case 10: return data.q8_system.trim().length >= 5;
-      case 11: return data.q9_recent_sale.trim().length >= 5;
-      case 12: return data.q10_mentor.trim().length >= 2;
-      case 13: return !!data.q11_reaction;
-      case 14: return !!data.q12_team;
+      case 2: return data.email.includes("@") && !!data.q1_role;
+      case 3: return !!data.q2_inventory;
+      case 4: return !!data.q3_time;
+      case 5: return data.q4_channels.length > 0;
+      case 6: return data.q5_past_fail.trim().length >= 5;
+      case 7: return !!data.q6_investment;
+      case 8: return !!data.q7_budget;
+      case 9: return data.q8_system.trim().length >= 5;
+      case 10: return data.q9_recent_sale.trim().length >= 5;
+      case 11: return data.q10_mentor.trim().length >= 2;
+      case 12: return !!data.q11_reaction;
+      case 13: return !!data.q12_team;
       case 14: return !!data.q13_response;
+      case 15: return !!data.q14_consent;
       default: return false;
     }
   };
@@ -95,7 +97,7 @@ export const IClosedWizard = () => {
         if (data.q1_role === "Inversionista") pointsToAdd = 5;
         if (data.q1_role === "Otro") fail = true;
         break;
-      case 4:
+      case 3:
         if (data.q2_inventory === "0" || data.q2_inventory === "1-5") fail = true;
         if (data.q2_inventory === "6-20") pointsToAdd = 10;
         if (data.q2_inventory === "+20") pointsToAdd = 15;
@@ -145,6 +147,9 @@ export const IClosedWizard = () => {
         if (data.q13_response === "<5m") pointsToAdd = 15;
         if (data.q13_response === "5-30m") pointsToAdd = 10;
         if (data.q13_response === ">1h") fail = true;
+        break;
+      case 15:
+        if (data.q14_consent.includes("No, no contestare")) fail = true;
         break;
     }
 
@@ -276,7 +281,7 @@ export const IClosedWizard = () => {
             </Button>
           </div>
         );
-      case 4:
+      case 3:
         return (
           <div className="space-y-6">
             <div>
@@ -296,7 +301,7 @@ export const IClosedWizard = () => {
             </Button>
           </div>
         );
-      case 5:
+      case 4:
         return (
           <div className="space-y-6">
             <div>
@@ -346,7 +351,7 @@ export const IClosedWizard = () => {
             </Button>
           </div>
         );
-      case 7:
+      case 6:
         return (
           <div className="space-y-6">
             <div>
@@ -366,7 +371,7 @@ export const IClosedWizard = () => {
             </Button>
           </div>
         );
-      case 8:
+      case 7:
         return (
           <div className="space-y-6">
             <div>
@@ -386,7 +391,7 @@ export const IClosedWizard = () => {
             </Button>
           </div>
         );
-      case 9:
+      case 8:
         return (
           <div className="space-y-6">
             <div>
@@ -404,7 +409,7 @@ export const IClosedWizard = () => {
             </Button>
           </div>
         );
-      case 10:
+      case 9:
         return (
           <div className="space-y-6">
             <div>
@@ -424,7 +429,7 @@ export const IClosedWizard = () => {
             </Button>
           </div>
         );
-      case 11:
+      case 10:
         return (
           <div className="space-y-6">
             <div>
@@ -444,7 +449,7 @@ export const IClosedWizard = () => {
             </Button>
           </div>
         );
-      case 12:
+      case 11:
         return (
           <div className="space-y-6">
             <div>
@@ -464,7 +469,7 @@ export const IClosedWizard = () => {
             </Button>
           </div>
         );
-      case 13:
+      case 12:
         return (
           <div className="space-y-6">
             <div>
@@ -484,7 +489,7 @@ export const IClosedWizard = () => {
             </Button>
           </div>
         );
-      case 14:
+      case 13:
         return (
           <div className="space-y-6">
             <div>
@@ -515,6 +520,39 @@ export const IClosedWizard = () => {
               <CustomRadio label="Menos de 5 minutos" value="<5m" selectedValue={data.q13_response} onChange={(v: string) => updateData({ q13_response: v })} />
               <CustomRadio label="Entre 5 y 30 minutos" value="5-30m" selectedValue={data.q13_response} onChange={(v: string) => updateData({ q13_response: v })} />
               <CustomRadio label="Nos toma más de 1 hora" value=">1h" selectedValue={data.q13_response} onChange={(v: string) => updateData({ q13_response: v })} />
+            </div>
+            <Button onClick={handleNext} className="w-full mt-10 h-12 text-base font-bold group hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all">
+              Siguiente <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </div>
+        );
+            case 15:
+        return (
+          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div>
+              <p className="text-xs tracking-wider text-accent uppercase mb-2">Paso Final: Verificación</p>
+              <h2 className="text-2xl font-bold tracking-tight mb-4 leading-tight text-white">
+                Consentimiento Estricto
+              </h2>
+              <div className="bg-destructive/10 border-l-4 border-destructive p-4 rounded-r-lg mb-6">
+                <p className="text-sm text-foreground/90 leading-relaxed font-medium">
+                  Te CONTACTAREMOS por WhatsApp o Llamada para CONFIRMAR tu cita. Si no respondes, tendremos que cancelar la llamada. Esto lo hacemos por que estamos recibiendo muchas agendas falsas así que simplemente necesitamos confirmar que eres una persona real. (Odiamos tener que ser tan estrictos, pero tenemos que limpiar nuestra agenda de llamadas SPAM) *
+                </p>
+              </div>
+            </div>
+            <div className="space-y-3 mt-4">
+              <CustomRadio 
+                label="Si, lo entiendo y contestare." 
+                value="Si, lo entiendo y contestare." 
+                selectedValue={data.q14_consent} 
+                onChange={(v) => updateData({ q14_consent: v })} 
+              />
+              <CustomRadio 
+                label="No, no contestare, soy un bot, curioso o te estoy copiando el funnel." 
+                value="No, no contestare, soy un bot, curioso o te estoy copiando el funnel." 
+                selectedValue={data.q14_consent} 
+                onChange={(v) => updateData({ q14_consent: v })} 
+              />
             </div>
             <Button onClick={handleNext} className="w-full mt-10 h-12 text-base font-bold bg-foreground text-background hover:bg-foreground/90 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)]">
               Finalizar y Evaluar
