@@ -142,7 +142,7 @@ export function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden pt-24 pb-16 px-6"
+      className="relative min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden pt-40 pb-16 px-6"
     >
       {/* Background mesh */}
       <div className="absolute inset-0 mesh-animated pointer-events-none" />
