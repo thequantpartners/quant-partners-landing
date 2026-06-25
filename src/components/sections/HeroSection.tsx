@@ -136,9 +136,10 @@ function FloatingVisual() {
 
 export function HeroSection() {
   const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  // Use raw scrollY (window scroll) so opacity/y are 0 at page load
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 600], ["0%", "20%"]);
+  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
 
   return (
     <section
