@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import { PrimaryCTA } from "@/components/ui/PrimaryCTA";
 
 export function Navbar() {
@@ -24,19 +25,16 @@ export function Navbar() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex items-center gap-3"
+          className="flex items-center"
         >
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#c9a84c] via-[#e2c46e] to-[#a08535] flex items-center justify-center shadow-[0_0_20px_rgba(201,168,76,0.3)]">
-            <span className="text-[#080c16] font-black text-xs tracking-tight">TQ</span>
-          </div>
-          <div className="flex flex-col leading-none">
-            <span className="font-bold text-white tracking-tight text-sm">
-              The Quant
-            </span>
-            <span className="text-gradient-gold text-sm font-bold tracking-wider">
-              Partners
-            </span>
-          </div>
+          <Image
+            src="/logo.png"
+            alt="The Quant Partners"
+            width={120}
+            height={48}
+            className="object-contain drop-shadow-[0_0_12px_rgba(201,168,76,0.25)]"
+            priority
+          />
         </motion.div>
 
         {/* Nav links */}
