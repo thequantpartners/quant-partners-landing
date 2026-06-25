@@ -14,21 +14,27 @@ const config: Config = {
       },
       colors: {
         bg: {
-          base: "#050505",
-          surface: "#0d0d0d",
-          elevated: "#141414",
+          base: "#080c16",
+          surface: "#0d1220",
+          elevated: "#121929",
         },
         accent: {
-          green: "#00ff88",
-          "green-dim": "#00cc6a",
-          "green-glow": "rgba(0,255,136,0.15)",
-          blue: "#00d4ff",
-          "blue-dim": "#00aacc",
+          gold: "#c9a84c",
+          "gold-bright": "#e2c46e",
+          "gold-dim": "#a08535",
+          "gold-glow": "rgba(201,168,76,0.15)",
+          "gold-subtle": "rgba(201,168,76,0.08)",
+        },
+        navy: {
+          DEFAULT: "#080c16",
+          light: "#0d1220",
+          border: "rgba(201,168,76,0.12)",
         },
         border: {
-          subtle: "rgba(255,255,255,0.06)",
-          default: "rgba(255,255,255,0.10)",
-          strong: "rgba(255,255,255,0.18)",
+          subtle: "rgba(255,255,255,0.05)",
+          default: "rgba(255,255,255,0.08)",
+          gold: "rgba(201,168,76,0.20)",
+          "gold-strong": "rgba(201,168,76,0.35)",
         },
       },
       borderRadius: {
@@ -38,36 +44,30 @@ const config: Config = {
         "4xl": "2rem",
       },
       boxShadow: {
-        "glow-green": "0 0 40px rgba(0,255,136,0.25), 0 0 80px rgba(0,255,136,0.10)",
-        "glow-green-sm": "0 0 20px rgba(0,255,136,0.20)",
-        "glow-blue": "0 0 40px rgba(0,212,255,0.20)",
-        glass: "inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.4)",
+        "glow-gold": "0 0 40px rgba(201,168,76,0.20), 0 0 80px rgba(201,168,76,0.08)",
+        "glow-gold-sm": "0 0 20px rgba(201,168,76,0.18)",
+        "glow-gold-lg": "0 0 60px rgba(201,168,76,0.30), 0 0 120px rgba(201,168,76,0.12)",
+        glass: "inset 0 1px 0 rgba(255,255,255,0.06), 0 8px 32px rgba(0,0,0,0.5)",
       },
       backgroundImage: {
-        "mesh-1":
-          "radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0,255,136,0.08) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0,212,255,0.06) 0%, transparent 60%)",
-        "mesh-2":
-          "radial-gradient(ellipse 60% 60% at 70% 30%, rgba(0,255,136,0.06) 0%, transparent 60%), radial-gradient(ellipse 80% 50% at 30% 70%, rgba(0,212,255,0.08) 0%, transparent 60%)",
-        "green-radial": "radial-gradient(circle, rgba(0,255,136,0.15) 0%, transparent 70%)",
+        "mesh-navy":
+          "radial-gradient(ellipse 80% 50% at 20% 20%, rgba(201,168,76,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201,168,76,0.04) 0%, transparent 60%)",
+        "gold-radial": "radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%)",
+        "gold-linear": "linear-gradient(135deg, #c9a84c 0%, #e2c46e 50%, #a08535 100%)",
       },
       animation: {
         "pulse-slow": "pulse 4s cubic-bezier(0.4,0,0.6,1) infinite",
-        "float": "float 6s ease-in-out infinite",
-        "mesh-shift": "meshShift 12s ease-in-out infinite alternate",
-        "border-glow": "borderGlow 3s ease-in-out infinite",
+        float: "float 6s ease-in-out infinite",
+        "shimmer": "shimmer 3s linear infinite",
       },
       keyframes: {
         float: {
           "0%,100%": { transform: "translateY(0px) rotate(0deg)" },
-          "50%": { transform: "translateY(-20px) rotate(2deg)" },
+          "50%": { transform: "translateY(-18px) rotate(1.5deg)" },
         },
-        meshShift: {
-          "0%": { backgroundPosition: "0% 0%" },
-          "100%": { backgroundPosition: "100% 100%" },
-        },
-        borderGlow: {
-          "0%,100%": { boxShadow: "0 0 20px rgba(0,255,136,0.2)" },
-          "50%": { boxShadow: "0 0 40px rgba(0,255,136,0.5), 0 0 80px rgba(0,255,136,0.2)" },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% center" },
+          "100%": { backgroundPosition: "200% center" },
         },
       },
     },

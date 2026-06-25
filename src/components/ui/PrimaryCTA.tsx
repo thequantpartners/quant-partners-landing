@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,7 @@ interface PrimaryCTAProps {
   size?: "sm" | "md" | "lg";
   className?: string;
   icon?: boolean;
+  variant?: "gold" | "outline";
 }
 
 export function PrimaryCTA({
@@ -21,6 +22,7 @@ export function PrimaryCTA({
   size = "md",
   className,
   icon = true,
+  variant = "gold",
 }: PrimaryCTAProps) {
   const ref = useRef<HTMLAnchorElement & HTMLButtonElement>(null);
 
@@ -34,8 +36,8 @@ export function PrimaryCTA({
     if (!rect) return;
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
-    x.set((e.clientX - cx) * 0.25);
-    y.set((e.clientY - cy) * 0.25);
+    x.set((e.clientX - cx) * 0.22);
+    y.set((e.clientY - cy) * 0.22);
   }
 
   function handleMouseLeave() {
@@ -47,6 +49,20 @@ export function PrimaryCTA({
     sm: "px-6 py-3 text-sm",
     md: "px-8 py-4 text-base",
     lg: "px-10 py-5 text-lg",
+  };
+
+  const variants = {
+    gold: cn(
+      "bg-gradient-to-r from-[#c9a84c] via-[#e2c46e] to-[#a08535]",
+      "text-[#080c16] font-bold",
+      "shadow-[0_0_30px_rgba(201,168,76,0.25),0_0_60px_rgba(201,168,76,0.08)]",
+      "hover:shadow-[0_0_50px_rgba(201,168,76,0.45),0_0_100px_rgba(201,168,76,0.18)]",
+    ),
+    outline: cn(
+      "bg-transparent border border-[rgba(201,168,76,0.35)]",
+      "text-[#c9a84c] font-semibold",
+      "hover:bg-[rgba(201,168,76,0.06)] hover:border-[rgba(201,168,76,0.6)]",
+    ),
   };
 
   const content = (
@@ -64,22 +80,21 @@ export function PrimaryCTA({
           </motion.span>
         )}
       </span>
-      <motion.span
-        className="absolute inset-0 rounded-pill bg-gradient-to-r from-[#00ff88] to-[#00d4ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        aria-hidden
-      />
+      {variant === "gold" && (
+        <motion.span
+          className="absolute inset-0 rounded-pill bg-gradient-to-r from-[#e2c46e] via-[#c9a84c] to-[#e2c46e] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          aria-hidden
+        />
+      )}
     </>
   );
 
   const baseClass = cn(
     "group relative inline-flex items-center justify-center rounded-pill",
-    "bg-gradient-to-r from-[#00ff88] to-[#00cc6a]",
-    "text-[#050505] font-bold",
-    "shadow-[0_0_30px_rgba(0,255,136,0.3),0_0_60px_rgba(0,255,136,0.1)]",
-    "hover:shadow-[0_0_50px_rgba(0,255,136,0.5),0_0_100px_rgba(0,255,136,0.2)]",
-    "transition-shadow duration-300",
+    "transition-all duration-300",
     "overflow-hidden cursor-pointer",
     sizes[size],
+    variants[variant],
     className
   );
 

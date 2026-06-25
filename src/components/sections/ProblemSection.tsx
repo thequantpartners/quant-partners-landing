@@ -18,21 +18,14 @@ const solutions = [
   "Solo medimos lo que importa: leads calificados y revenue.",
 ];
 
-const STAGGER = 0.1;
-
 export function ProblemSection() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section
-      ref={ref}
-      id="el-problema"
-      className="relative py-32 px-6 overflow-hidden"
-    >
-      {/* Background accent */}
+    <section ref={ref} id="el-problema" className="relative py-32 px-6 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500/[0.03] blur-3xl" />
+        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c9a84c]/[0.02] blur-3xl" />
       </div>
 
       <div className="max-w-7xl mx-auto">
@@ -42,7 +35,7 @@ export function ProblemSection() {
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-[#00ff88]/60 text-sm font-medium tracking-widest uppercase mb-6"
+            className="text-[#c9a84c]/50 text-sm font-medium tracking-widest uppercase mb-6"
           >
             El problema real
           </motion.p>
@@ -63,15 +56,15 @@ export function ProblemSection() {
           </motion.h2>
         </div>
 
-        {/* Problem vs Solution grid */}
-        <div className="grid md:grid-cols-2 gap-0 border border-white/[0.06] rounded-3xl overflow-hidden">
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 gap-0 border border-[rgba(201,168,76,0.10)] rounded-3xl overflow-hidden">
           {/* Problems */}
-          <div className="p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/[0.06]">
+          <div className="p-8 md:p-12 border-b md:border-b-0 md:border-r border-[rgba(201,168,76,0.08)]">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-8 h-8 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
                 <X size={14} className="text-red-400" />
               </div>
-              <span className="text-red-400/60 text-sm font-medium tracking-wider uppercase">
+              <span className="text-red-400/50 text-sm font-medium tracking-wider uppercase">
                 La agencia tradicional
               </span>
             </div>
@@ -81,11 +74,11 @@ export function ProblemSection() {
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.3 + i * STAGGER }}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
                   className="flex gap-4 items-start group"
                 >
-                  <X size={16} className="text-red-400/40 mt-0.5 shrink-0" />
-                  <span className="text-white/40 text-base leading-snug group-hover:text-white/60 transition-colors duration-200">
+                  <X size={16} className="text-red-400/30 mt-0.5 shrink-0" />
+                  <span className="text-white/35 text-base leading-snug group-hover:text-white/55 transition-colors duration-200">
                     {p}
                   </span>
                 </motion.li>
@@ -94,12 +87,12 @@ export function ProblemSection() {
           </div>
 
           {/* Solutions */}
-          <div className="p-8 md:p-12 bg-[#00ff88]/[0.02]">
+          <div className="p-8 md:p-12 bg-[rgba(201,168,76,0.02)]">
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-8 h-8 rounded-full bg-[#00ff88]/10 border border-[#00ff88]/20 flex items-center justify-center">
-                <Check size={14} className="text-[#00ff88]" />
+              <div className="w-8 h-8 rounded-full bg-[rgba(201,168,76,0.10)] border border-[rgba(201,168,76,0.20)] flex items-center justify-center">
+                <Check size={14} className="text-[#c9a84c]" />
               </div>
-              <span className="text-[#00ff88]/60 text-sm font-medium tracking-wider uppercase">
+              <span className="text-[#c9a84c]/50 text-sm font-medium tracking-wider uppercase">
                 The Quant Partners
               </span>
             </div>
@@ -109,11 +102,11 @@ export function ProblemSection() {
                   key={i}
                   initial={{ opacity: 0, x: 20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.4 + i * STAGGER }}
+                  transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
                   className="flex gap-4 items-start group"
                 >
-                  <Check size={16} className="text-[#00ff88] mt-0.5 shrink-0" />
-                  <span className="text-white/70 text-base leading-snug group-hover:text-white transition-colors duration-200">
+                  <Check size={16} className="text-[#c9a84c] mt-0.5 shrink-0" />
+                  <span className="text-white/60 text-base leading-snug group-hover:text-white transition-colors duration-200">
                     {s}
                   </span>
                 </motion.li>
@@ -132,7 +125,7 @@ export function ProblemSection() {
           <p className="text-white/20 text-sm uppercase tracking-widest mb-4">El dato que duele</p>
           <p className="text-4xl md:text-5xl font-black">
             <span className="text-white">El </span>
-            <span className="text-gradient-green">96%</span>
+            <span className="text-gradient-gold">96%</span>
             <span className="text-white"> de los visitantes</span>
           </p>
           <p className="text-4xl md:text-5xl font-black text-white/20 mt-1">

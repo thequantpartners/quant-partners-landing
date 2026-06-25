@@ -5,9 +5,9 @@ import { PrimaryCTA } from "@/components/ui/PrimaryCTA";
 
 export function Navbar() {
   const { scrollY } = useScroll();
-  const bg = useTransform(scrollY, [0, 80], ["rgba(5,5,5,0)", "rgba(5,5,5,0.92)"]);
-  const blur = useTransform(scrollY, [0, 80], ["blur(0px)", "blur(20px)"]);
-  const borderOpacity = useTransform(scrollY, [0, 80], [0, 0.08]);
+  const bg = useTransform(scrollY, [0, 80], ["rgba(8,12,22,0)", "rgba(8,12,22,0.95)"]);
+  const blur = useTransform(scrollY, [0, 80], ["blur(0px)", "blur(24px)"]);
+  const borderOpacity = useTransform(scrollY, [0, 80], [0, 0.12]);
 
   return (
     <motion.header
@@ -15,24 +15,31 @@ export function Navbar() {
       style={{ backgroundColor: bg, backdropFilter: blur }}
     >
       <motion.div
-        className="absolute bottom-0 left-0 right-0 h-px bg-white"
+        className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c9a84c] to-transparent"
         style={{ opacity: borderOpacity }}
       />
       <div className="max-w-7xl mx-auto flex items-center justify-between">
+        {/* Logo */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
           className="flex items-center gap-3"
         >
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00ff88] to-[#00d4ff] flex items-center justify-center">
-            <span className="text-[#050505] font-black text-xs">TQ</span>
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#c9a84c] via-[#e2c46e] to-[#a08535] flex items-center justify-center shadow-[0_0_20px_rgba(201,168,76,0.3)]">
+            <span className="text-[#080c16] font-black text-xs tracking-tight">TQ</span>
           </div>
-          <span className="font-bold text-white tracking-tight">
-            The Quant<span className="text-[#00ff88]"> Partners</span>
-          </span>
+          <div className="flex flex-col leading-none">
+            <span className="font-bold text-white tracking-tight text-sm">
+              The Quant
+            </span>
+            <span className="text-gradient-gold text-sm font-bold tracking-wider">
+              Partners
+            </span>
+          </div>
         </motion.div>
 
+        {/* Nav links */}
         <motion.nav
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -43,13 +50,14 @@ export function Navbar() {
             <a
               key={item}
               href={`#${item.toLowerCase().replace(" ", "-")}`}
-              className="text-sm text-white/50 hover:text-white transition-colors duration-200"
+              className="text-sm text-white/40 hover:text-[#c9a84c] transition-colors duration-200 tracking-wide"
             >
               {item}
             </a>
           ))}
         </motion.nav>
 
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}

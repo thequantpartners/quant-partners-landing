@@ -8,7 +8,7 @@ import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <main className="relative bg-[#050505]">
+    <main className="relative bg-[#080c16]">
       <Navbar />
       <HeroSection />
       <ProblemSection />

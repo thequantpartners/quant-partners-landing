@@ -6,6 +6,10 @@
   :root {
     --font-space-grotesk: "Space Grotesk", sans-serif;
     --font-inter: "Inter", sans-serif;
+    --gold: #c9a84c;
+    --gold-bright: #e2c46e;
+    --gold-dim: #a08535;
+    --navy: #080c16;
   }
 
   html {
@@ -15,15 +19,15 @@
   }
 
   body {
-    background-color: #050505;
+    background-color: #080c16;
     color: #ffffff;
     font-family: var(--font-space-grotesk), var(--font-inter), system-ui, sans-serif;
     overflow-x: hidden;
   }
 
   ::selection {
-    background: rgba(0, 255, 136, 0.2);
-    color: #00ff88;
+    background: rgba(201, 168, 76, 0.18);
+    color: #e2c46e;
   }
 
   ::-webkit-scrollbar {
@@ -31,77 +35,107 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #050505;
+    background: #080c16;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(0, 255, 136, 0.3);
+    background: rgba(201, 168, 76, 0.25);
     border-radius: 9999px;
   }
 }
 
 @layer utilities {
   .glass {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-gold {
+    background: rgba(201, 168, 76, 0.04);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(201, 168, 76, 0.15);
   }
 
   .glass-strong {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(201, 168, 76, 0.12);
   }
 
-  .text-gradient-green {
-    background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+  /* Gold gradient text */
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #c9a84c 0%, #e2c46e 50%, #a08535 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  /* Shimmer gold text */
+  .text-gradient-gold-shimmer {
+    background: linear-gradient(
+      90deg,
+      #a08535 0%,
+      #e2c46e 30%,
+      #c9a84c 50%,
+      #e2c46e 70%,
+      #a08535 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
   }
 
   .text-gradient-white {
-    background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.6) 100%);
+    background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.55) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .glow-green {
-    box-shadow: 0 0 40px rgba(0, 255, 136, 0.25), 0 0 80px rgba(0, 255, 136, 0.10);
+  .glow-gold {
+    box-shadow: 0 0 40px rgba(201, 168, 76, 0.22), 0 0 80px rgba(201, 168, 76, 0.08);
   }
 
-  .glow-green-text {
-    text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+  .glow-gold-text {
+    text-shadow: 0 0 30px rgba(201, 168, 76, 0.4);
   }
 
-  .noise-bg::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.4;
-  }
-
+  /* Animated navy + gold mesh background */
   .mesh-animated {
-    background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0, 255, 136, 0.08) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0, 212, 255, 0.06) 0%, transparent 60%),
-                radial-gradient(ellipse 40% 60% at 60% 10%, rgba(0, 255, 136, 0.04) 0%, transparent 60%);
-    animation: meshPulse 8s ease-in-out infinite alternate;
+    background:
+      radial-gradient(ellipse 70% 50% at 15% 25%, rgba(201, 168, 76, 0.07) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 85% 75%, rgba(201, 168, 76, 0.04) 0%, transparent 65%),
+      radial-gradient(ellipse 60% 60% at 50% 0%, rgba(226, 196, 110, 0.03) 0%, transparent 60%);
+    animation: meshPulse 10s ease-in-out infinite alternate;
   }
 
   @keyframes meshPulse {
     0% {
-      background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0, 255, 136, 0.08) 0%, transparent 60%),
-                  radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0, 212, 255, 0.06) 0%, transparent 60%);
+      background:
+        radial-gradient(ellipse 70% 50% at 15% 25%, rgba(201, 168, 76, 0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 85% 75%, rgba(201, 168, 76, 0.04) 0%, transparent 65%);
     }
     100% {
-      background: radial-gradient(ellipse 80% 50% at 30% 30%, rgba(0, 255, 136, 0.12) 0%, transparent 60%),
-                  radial-gradient(ellipse 60% 40% at 70% 70%, rgba(0, 212, 255, 0.09) 0%, transparent 60%);
+      background:
+        radial-gradient(ellipse 70% 50% at 25% 35%, rgba(201, 168, 76, 0.10) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 75% 65%, rgba(201, 168, 76, 0.06) 0%, transparent 65%);
     }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  /* Gold divider line */
+  .divider-gold {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.3), transparent);
   }
 }
