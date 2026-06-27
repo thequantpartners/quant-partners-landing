@@ -15,6 +15,8 @@
 - [x] Logo real integrado en Navbar y Footer (next/image)
 - [x] Favicon automático vía src/app/icon.png
 - [x] Fix hero padding (pt-24 → pt-40)
+- [x] Definición del ICP (Firmas de Inmigración EB-2 NIW)
+- [x] Rediseño del copy y estructura de la Landing Page para el nuevo ICP
 
 ## Pending
 - [ ] Conectar repo en Vercel para deploy
