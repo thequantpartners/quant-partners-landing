@@ -2,134 +2,113 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { X, Check } from "lucide-react";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 const problems = [
-  "Tu web es una tarjeta de presentación digital. Nadie la visita.",
-  "Gastás en ads sin sistema de conversión. Tirás plata.",
-  "Tu competencia responde en minutos con IA. Vos respondés mañana.",
-  "La agencia te vende métricas, no clientes ni facturación.",
-];
-
-const solutions = [
-  "Sistema de adquisición automatizado que trabaja 24/7.",
-  "Cada peso en ads entra a un embudo de conversión medido.",
-  "Widget IA propietario cierra en tiempo real, a las 3am si hace falta.",
-  "Solo medimos lo que importa: leads calificados y revenue.",
+  {
+    n: "01",
+    tag: "Tiempo facturable perdido",
+    title: "La consulta que nunca debió ocurrir",
+    desc: "Pasó 45 minutos explicando el estándar del EB-2 NIW a alguien con un título técnico y dos años de experiencia. Fue educado. No fue productivo. Esa hora valía $375 de su tiempo facturado, y no la recupera.",
+  },
+  {
+    n: "02",
+    tag: "Publicidad sin filtro",
+    title: "Anuncios que atraen curiosos, no clientes",
+    desc: "Su anuncio trae 200 clics. 180 personas no califican. 15 no tienen presupuesto. 4 agendan. 1 cierra. Eso no es marketing — es una lotería cara con una tasa de conversión de 0.5%.",
+  },
+  {
+    n: "03",
+    tag: "Escala bloqueada",
+    title: "Su agenda controla el negocio, no al revés",
+    desc: "Cuando su tiempo es el único cuello de botella, escalar es imposible. Cada caso nuevo exige más de usted. El límite de su firma es el límite de sus horas. Eso no es un bufete — es un autoempleo disfrazado.",
+  },
 ];
 
 export function ProblemSection() {
   const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="el-problema" className="relative py-32 px-6 overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c9a84c]/[0.02] blur-3xl" />
-      </div>
+    <section ref={ref} id="el-problema" className="relative py-28 md:py-40 px-6 overflow-hidden">
+      <div className="absolute top-0 left-0 w-[420px] h-[420px] -translate-x-1/3 rounded-full bg-[#c9a84c]/[0.025] blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="max-w-3xl mb-24">
+        {/* Header — asymmetric, sits in the left two-thirds */}
+        <div className="grid lg:grid-cols-12 gap-10 items-end mb-20 md:mb-28">
+          <SectionHeader index="01" kicker="El problema real" className="lg:col-span-8">
+            <span className="text-white">Usted no tiene un</span>{" "}
+            <span className="text-white/25">problema de marketing.</span>
+            <br />
+            <span className="text-gradient-gold">Tiene un problema de filtro.</span>
+          </SectionHeader>
+
           <motion.p
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-[#c9a84c]/50 text-sm font-medium tracking-widest uppercase mb-6"
-          >
-            El problema real
-          </motion.p>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-5xl md:text-6xl xl:text-7xl font-black leading-[0.95] tracking-tight"
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="lg:col-span-4 text-white/40 text-base leading-relaxed lg:pb-2"
           >
-            <span className="text-white/20">Las webs</span>
-            <br />
-            <span className="text-white">tradicionales</span>
-            <br />
-            <span className="text-white/20">están</span>
-            <br />
-            <span className="text-white">muertas.</span>
-          </motion.h2>
+            La mayoría de firmas no necesitan más visibilidad. Necesitan un sistema que haga el
+            trabajo sucio antes de que usted abra la boca.
+          </motion.p>
         </div>
 
-        {/* Grid */}
-        <div className="grid md:grid-cols-2 gap-0 border border-[rgba(201,168,76,0.10)] rounded-3xl overflow-hidden">
-          {/* Problems */}
-          <div className="p-8 md:p-12 border-b md:border-b-0 md:border-r border-[rgba(201,168,76,0.08)]">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-8 h-8 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-                <X size={14} className="text-red-400" />
+        {/* Editorial numbered index — rows separated by hairlines, no boxes */}
+        <div>
+          {problems.map((p, i) => (
+            <motion.article
+              key={p.n}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.2 + i * 0.15 }}
+              className="group relative grid md:grid-cols-12 gap-6 md:gap-10 items-start py-10 md:py-14 border-t border-[rgba(255,255,255,0.07)] hover:border-[rgba(201,168,76,0.25)] transition-colors duration-500"
+            >
+              {/* Oversized outline index */}
+              <div className="md:col-span-2">
+                <span className="font-display text-6xl md:text-7xl font-bold text-stroke-faint group-hover:text-stroke-gold transition-all duration-500 leading-none">
+                  {p.n}
+                </span>
               </div>
-              <span className="text-red-400/50 text-sm font-medium tracking-wider uppercase">
-                La agencia tradicional
-              </span>
-            </div>
-            <ul className="space-y-6">
-              {problems.map((p, i) => (
-                <motion.li
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
-                  className="flex gap-4 items-start group"
-                >
-                  <X size={16} className="text-red-400/30 mt-0.5 shrink-0" />
-                  <span className="text-white/35 text-base leading-snug group-hover:text-white/55 transition-colors duration-200">
-                    {p}
-                  </span>
-                </motion.li>
-              ))}
-            </ul>
-          </div>
 
-          {/* Solutions */}
-          <div className="p-8 md:p-12 bg-[rgba(201,168,76,0.02)]">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-8 h-8 rounded-full bg-[rgba(201,168,76,0.10)] border border-[rgba(201,168,76,0.20)] flex items-center justify-center">
-                <Check size={14} className="text-[#c9a84c]" />
+              {/* Title */}
+              <div className="md:col-span-5">
+                <span className="mono-label text-[#c9a84c]/45 block mb-3">{p.tag}</span>
+                <h3 className="font-display text-2xl md:text-3xl font-semibold text-white leading-tight">
+                  {p.title}
+                </h3>
               </div>
-              <span className="text-[#c9a84c]/50 text-sm font-medium tracking-wider uppercase">
-                The Quant Partners
-              </span>
-            </div>
-            <ul className="space-y-6">
-              {solutions.map((s, i) => (
-                <motion.li
-                  key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
-                  className="flex gap-4 items-start group"
-                >
-                  <Check size={16} className="text-[#c9a84c] mt-0.5 shrink-0" />
-                  <span className="text-white/60 text-base leading-snug group-hover:text-white transition-colors duration-200">
-                    {s}
-                  </span>
-                </motion.li>
-              ))}
-            </ul>
-          </div>
+
+              {/* Description */}
+              <div className="md:col-span-5 md:pt-1">
+                <p className="text-white/40 text-base leading-relaxed group-hover:text-white/55 transition-colors duration-500">
+                  {p.desc}
+                </p>
+              </div>
+
+              {/* Hover accent that travels along the top rule */}
+              <span className="absolute top-0 left-0 h-px w-0 bg-gradient-to-r from-[#c9a84c] to-transparent group-hover:w-1/3 transition-all duration-700" />
+            </motion.article>
+          ))}
+          <div className="border-t border-[rgba(255,255,255,0.07)]" />
         </div>
 
-        {/* Bold stat */}
+        {/* Closing editorial statement — big type, no box */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-16 text-center"
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-24 max-w-4xl"
         >
-          <p className="text-white/20 text-sm uppercase tracking-widest mb-4">El dato que duele</p>
-          <p className="text-4xl md:text-5xl font-black">
+          <p className="font-display text-4xl md:text-6xl font-bold leading-[1.05] tracking-tight">
             <span className="text-white">El </span>
-            <span className="text-gradient-gold">96%</span>
-            <span className="text-white"> de los visitantes</span>
+            <span className="text-gradient-gold">95%</span>
+            <span className="text-white"> de sus consultas no van a cerrar.</span>{" "}
+            <span className="text-white/25">Nunca.</span>
           </p>
-          <p className="text-4xl md:text-5xl font-black text-white/20 mt-1">
-            se van sin convertir.
+          <p className="text-white/35 text-lg mt-8 max-w-2xl leading-relaxed">
+            Cada una le cuesta tiempo que vale entre $300 y $400 en horas facturables. El problema no
+            es la cantidad de leads. Es la calidad.
           </p>
         </motion.div>
       </div>

@@ -2,7 +2,8 @@ import { Navbar } from "@/components/sections/Navbar";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ProblemSection } from "@/components/sections/ProblemSection";
 import { SystemSection } from "@/components/sections/SystemSection";
-import { AdvantageSection } from "@/components/sections/AdvantageSection";
+import { EconomicsSection } from "@/components/sections/EconomicsSection";
+import { SocialProofSection } from "@/components/sections/SocialProofSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { Footer } from "@/components/sections/Footer";
 
@@ -13,7 +14,8 @@ export default function Home() {
       <HeroSection />
       <ProblemSection />
       <SystemSection />
-      <AdvantageSection />
+      <EconomicsSection />
+      <SocialProofSection />
       <ContactSection />
       <Footer />
     </main>

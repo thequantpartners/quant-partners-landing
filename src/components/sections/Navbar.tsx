@@ -44,13 +44,21 @@ export function Navbar() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="hidden md:flex items-center gap-8"
         >
-          {["El Sistema", "Ventaja", "Proceso", "Contacto"].map((item) => (
+          {[
+            { n: "01", label: "Problema", href: "#el-problema" },
+            { n: "02", label: "Sistema", href: "#el-sistema" },
+            { n: "03", label: "Finanzas", href: "#finanzas" },
+            { n: "04", label: "Contacto", href: "#contacto" },
+          ].map((item) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase().replace(" ", "-")}`}
-              className="text-sm text-white/40 hover:text-[#c9a84c] transition-colors duration-200 tracking-wide"
+              key={item.label}
+              href={item.href}
+              className="group flex items-baseline gap-1.5 text-white/45 hover:text-[#c9a84c] transition-colors duration-200"
             >
-              {item}
+              <span className="font-mono text-[10px] text-[#c9a84c]/35 group-hover:text-[#c9a84c]/70 transition-colors duration-200">
+                {item.n}
+              </span>
+              <span className="mono-label text-[0.68rem]">{item.label}</span>
             </a>
           ))}
         </motion.nav>

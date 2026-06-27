@@ -1,262 +1,225 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import { useRef, useEffect } from "react";
-import { Zap, TrendingUp, Users, ArrowRight } from "lucide-react";
-import { Pill } from "@/components/ui/Pill";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { PrimaryCTA } from "@/components/ui/PrimaryCTA";
 
-const metrics = [
-  { label: "Tasa de conversión promedio", value: "8.4%", sub: "vs 1.2% industria" },
-  { label: "ROI promedio en 90 días", value: "340%", sub: "en Google Ads" },
-  { label: "Clientes activos", value: "47+", sub: "en 6 países" },
+const stats = [
+  { value: "$6,500+", label: "Honorario EB-2 / O-1 promedio" },
+  { value: "95%", label: "Leads descartados antes de llegar a usted" },
+  { value: "4.3×", label: "Meses de servicio cubiertos por 1 caso" },
 ];
 
-function FloatingVisual() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 80, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 80, damping: 20 });
-
-  useEffect(() => {
-    function onMove(e: MouseEvent) {
-      mouseX.set((e.clientX / window.innerWidth - 0.5) * 18);
-      mouseY.set((e.clientY / window.innerHeight - 0.5) * 18);
-    }
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
-  }, [mouseX, mouseY]);
-
+/**
+ * Quant equity curve — a rising line + scatter rendered as the hero's visual idea.
+ * Communicates growth/ROI trajectory without a fake dashboard.
+ */
+function EquityCurve() {
   return (
-    <motion.div
-      className="relative w-full h-[500px] flex items-center justify-center"
-      style={{ x: springX, y: springY }}
+    <svg
+      viewBox="0 0 600 400"
+      fill="none"
+      className="w-full h-full"
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden
     >
-      {/* Outer rings */}
-      <motion.div
-        className="absolute w-[420px] h-[420px] rounded-full border border-[#c9a84c]/10"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className="absolute w-[320px] h-[320px] rounded-full border border-[#c9a84c]/08"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className="absolute w-[220px] h-[220px] rounded-full border border-[#c9a84c]/15"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+      <defs>
+        <linearGradient id="curveStroke" x1="0" y1="400" x2="600" y2="0">
+          <stop offset="0%" stopColor="#a08535" stopOpacity="0.2" />
+          <stop offset="55%" stopColor="#c9a84c" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#e2c46e" stopOpacity="1" />
+        </linearGradient>
+        <linearGradient id="curveFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#c9a84c" stopOpacity="0.16" />
+          <stop offset="100%" stopColor="#c9a84c" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+
+      {/* Area under the curve */}
+      <motion.path
+        d="M0,360 C120,350 180,300 260,280 C340,260 380,200 440,150 C500,100 540,70 600,40 L600,400 L0,400 Z"
+        fill="url(#curveFill)"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.6, delay: 0.5 }}
       />
 
-      {/* Central orb — shield-like premium */}
-      <motion.div
-        className="relative w-44 h-44 rounded-full"
-        animate={{ scale: [1, 1.03, 1] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#c9a84c]/20 via-[#0d1220] to-[#a08535]/10 backdrop-blur-xl border border-[#c9a84c]/25"
-          style={{ boxShadow: "0 0 60px rgba(201,168,76,0.18), inset 0 1px 0 rgba(201,168,76,0.2)" }}
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <div className="text-gradient-gold font-black text-4xl leading-none">TQ</div>
-            <div className="text-[#c9a84c]/40 text-[9px] mt-1 tracking-[0.3em] uppercase">Partners</div>
-          </div>
-        </div>
-        {/* Gold glow */}
-        <div className="absolute inset-0 rounded-full bg-[#c9a84c]/04 blur-2xl scale-150" />
-      </motion.div>
+      {/* The equity curve itself */}
+      <motion.path
+        d="M0,360 C120,350 180,300 260,280 C340,260 380,200 440,150 C500,100 540,70 600,40"
+        stroke="url(#curveStroke)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 2.2, ease: "easeInOut", delay: 0.3 }}
+      />
 
-      {/* Orbiting nodes */}
+      {/* Endpoint pulse */}
+      <motion.circle
+        cx="600"
+        cy="40"
+        r="5"
+        fill="#e2c46e"
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, delay: 2.4 }}
+      />
+      <motion.circle
+        cx="600"
+        cy="40"
+        r="5"
+        fill="none"
+        stroke="#e2c46e"
+        strokeWidth="1.5"
+        initial={{ opacity: 0.8, scale: 1 }}
+        animate={{ opacity: 0, scale: 3.5 }}
+        transition={{ duration: 2, repeat: Infinity, delay: 2.6 }}
+      />
+
+      {/* Scatter points sitting near the curve */}
       {[
-        { icon: <Zap size={14} />, label: "Ads", angle: 0, r: 158 },
-        { icon: <TrendingUp size={14} />, label: "Web", angle: 120, r: 158 },
-        { icon: <Users size={14} />, label: "IA", angle: 240, r: 158 },
-      ].map((node, i) => {
-        const rad = (node.angle * Math.PI) / 180;
-        return (
-          <motion.div
-            key={node.label}
-            className="absolute flex flex-col items-center gap-1"
-            style={{
-              left: `calc(50% + ${Math.cos(rad) * node.r}px - 24px)`,
-              top: `calc(50% + ${Math.sin(rad) * node.r}px - 24px)`,
-            }}
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 2.5, delay: i * 0.8, repeat: Infinity }}
-          >
-            <div
-              className="w-12 h-12 rounded-2xl flex items-center justify-center backdrop-blur-xl"
-              style={{
-                background: "rgba(201,168,76,0.08)",
-                border: "1px solid rgba(201,168,76,0.25)",
-                color: "#c9a84c",
-                boxShadow: "0 0 20px rgba(201,168,76,0.12)",
-              }}
-            >
-              {node.icon}
-            </div>
-            <span className="text-[10px] text-[#c9a84c]/50 tracking-wider">{node.label}</span>
-          </motion.div>
-        );
-      })}
-
-      {/* Connecting lines */}
-      <svg className="absolute inset-0 w-full h-full" style={{ pointerEvents: "none" }}>
-        <defs>
-          <radialGradient id="lineGradGold" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#c9a84c" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#c9a84c" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-        {[0, 120, 240].map((angle, i) => {
-          const rad = (angle * Math.PI) / 180;
-          const cx = 210, cy = 250;
-          const r = 158;
-          return (
-            <motion.line
-              key={i}
-              x1={cx} y1={cy}
-              x2={cx + Math.cos(rad) * r}
-              y2={cy + Math.sin(rad) * r}
-              stroke="url(#lineGradGold)"
-              strokeWidth="1"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0.15, 0.5, 0.15] }}
-              transition={{ duration: 3, delay: i * 0.6, repeat: Infinity }}
-            />
-          );
-        })}
-      </svg>
-    </motion.div>
+        [90, 352], [200, 296], [300, 268], [400, 178], [500, 96],
+      ].map(([cx, cy], i) => (
+        <motion.circle
+          key={i}
+          cx={cx}
+          cy={cy}
+          r="2.5"
+          fill="#c9a84c"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          transition={{ duration: 0.4, delay: 1.4 + i * 0.12 }}
+        />
+      ))}
+    </svg>
   );
 }
 
 export function HeroSection() {
   const ref = useRef<HTMLElement>(null);
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 600], ["0%", "20%"]);
-  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+  const y = useTransform(scrollY, [0, 600], ["0%", "12%"]);
+  const opacity = useTransform(scrollY, [0, 520], [1, 0]);
 
   return (
     <section
       ref={ref}
-      className="relative min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden pt-40 pb-16 px-6"
+      className="relative min-h-[100dvh] flex flex-col justify-center overflow-hidden pt-36 pb-20 px-6"
     >
-      {/* Background mesh */}
+      {/* Layered background: mesh + technical grid + equity curve */}
       <div className="absolute inset-0 mesh-animated pointer-events-none" />
-      {/* Bottom fade to next section */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#080c16] pointer-events-none" />
-
-      {/* Gold radial glow behind orb */}
-      <motion.div
-        className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[560px] h-[560px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%)" }}
-        animate={{ scale: [1, 1.08, 1] }}
-        transition={{ duration: 9, repeat: Infinity }}
-      />
+      <div className="absolute inset-0 quant-grid pointer-events-none opacity-70" />
+      <div className="absolute inset-y-0 right-0 w-full lg:w-[62%] opacity-90 pointer-events-none">
+        <EquityCurve />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#080c16] via-transparent to-[#080c16] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#080c16] via-[#080c16]/40 to-transparent pointer-events-none" />
 
       <motion.div
-        className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center"
+        className="relative z-10 max-w-7xl mx-auto w-full"
         style={{ y, opacity }}
       >
-        {/* Left: Copy */}
-        <div className="flex flex-col gap-8">
+        {/* Mono kicker */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7 }}
+          className="flex items-center gap-3 mb-10"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] animate-pulse" />
+          <span className="mono-label text-[#c9a84c]/70">
+            Sistema de pre-calificación · Firmas EB-2 / O-1
+          </span>
+        </motion.div>
+
+        {/* Editorial headline — breaks the grid, mixes weight + accent */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.1 }}
+          className="font-display font-bold tracking-tight leading-[0.95] text-[clamp(2.75rem,8vw,6.5rem)] max-w-5xl"
+        >
+          <span className="text-white">Su firma procesa</span>{" "}
+          <span className="text-gradient-gold-shimmer">EB-2 y O-1.</span>
+          <br />
+          <span className="text-white/30">Nosotros filtramos</span>
+          <br />
+          <span className="text-white">quién merece su tiempo.</span>
+        </motion.h1>
+
+        {/* Subhead + CTA in an asymmetric two-column band */}
+        <div className="mt-12 grid lg:grid-cols-12 gap-10 items-end">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="lg:col-span-7"
           >
-            <Pill variant="gold">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#c9a84c] animate-pulse" />
-              Growth Partner — No una agencia tradicional
-            </Pill>
+            <p className="text-white/55 text-lg md:text-xl leading-relaxed max-w-xl font-light">
+              Captamos solicitantes. Un sistema automático descarta a los no calificados. Los que
+              pasan pagan una consulta antes de hablar con usted.{" "}
+              <span className="text-white/85 font-normal">Usted cierra casos, no entrevistas.</span>
+            </p>
+
+            <div className="mt-9 flex flex-col sm:flex-row gap-5 items-start sm:items-center">
+              <PrimaryCTA href="#contacto" size="lg">
+                Agendar auditoría de 20 min
+              </PrimaryCTA>
+              <a
+                href="#el-sistema"
+                className="group flex items-center gap-2 text-white/45 hover:text-[#c9a84c] transition-colors duration-200 text-sm font-medium"
+              >
+                Ver cómo funciona
+                <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
+              </a>
+            </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="space-y-2"
-          >
-            <h1 className="text-5xl md:text-6xl xl:text-7xl font-black leading-[0.95] tracking-tight">
-              <span className="text-white">No hacemos</span>
-              <br />
-              <span className="text-white">páginas web.</span>
-              <br />
-              <span className="text-gradient-gold-shimmer">Construimos</span>
-              <br />
-              <span className="text-white">máquinas de</span>
-              <br />
-              <span className="text-white/30">adquisición.</span>
-            </h1>
-          </motion.div>
-
-          <motion.p
+          {/* Quant data readout — a stat line, not boxes */}
+          <motion.dl
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
-            className="text-white/45 text-lg leading-relaxed max-w-md"
+            transition={{ duration: 0.7, delay: 0.45 }}
+            className="lg:col-span-5 lg:border-l lg:border-[rgba(201,168,76,0.14)] lg:pl-10 flex flex-col gap-5"
           >
-            Instalamos un sistema 360° completo: web de alta conversión + IA de cierre
-            propietaria + Google Ads optimizado. Solo pagás si crece tu negocio.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.35 }}
-            className="flex flex-col sm:flex-row gap-4 items-start"
-          >
-            <PrimaryCTA href="#contacto" size="lg">
-              Agendar Auditoría Gratuita
-            </PrimaryCTA>
-            <a
-              href="#el-sistema"
-              className="flex items-center gap-2 text-white/40 hover:text-[#c9a84c] transition-colors duration-200 py-5 text-sm font-medium"
-            >
-              Ver cómo funciona
-              <ArrowRight size={16} />
-            </a>
-          </motion.div>
-
-          {/* Metrics */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="flex flex-wrap gap-8 pt-2 border-t border-[rgba(201,168,76,0.10)]"
-          >
-            {metrics.map((m) => (
-              <div key={m.label} className="flex flex-col gap-0.5 pt-4">
-                <span className="text-2xl font-black text-gradient-gold">{m.value}</span>
-                <span className="text-xs text-white/25 leading-tight max-w-[100px]">{m.sub}</span>
+            {stats.map((s, i) => (
+              <div key={s.label} className="flex items-baseline gap-4">
+                <span className="font-mono text-[10px] text-[#c9a84c]/35 w-5 shrink-0 pt-1">
+                  0{i + 1}
+                </span>
+                <div className="flex flex-col">
+                  <span className="font-display text-2xl md:text-3xl font-bold text-gradient-gold leading-none">
+                    {s.value}
+                  </span>
+                  <span className="text-white/35 text-xs mt-1.5 leading-snug">{s.label}</span>
+                </div>
               </div>
             ))}
-          </motion.div>
+          </motion.dl>
         </div>
 
-        {/* Right: Visual */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="hidden lg:block"
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.65 }}
+          className="mono-label text-white/20 mt-14 flex items-center gap-2"
         >
-          <FloatingVisual />
-        </motion.div>
+          Sin contratos de 12 meses · Sin promesas vacías · Solo casos que cierran
+        </motion.p>
       </motion.div>
 
       {/* Scroll hint */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        animate={{ y: [0, 8, 0] }}
+      <motion.a
+        href="#el-problema"
+        className="absolute bottom-8 right-8 hidden md:flex items-center gap-2 text-white/25 hover:text-[#c9a84c] transition-colors duration-200"
+        animate={{ y: [0, 6, 0] }}
         transition={{ duration: 2.2, repeat: Infinity }}
       >
-        <div className="w-px h-12 bg-gradient-to-b from-transparent to-[#c9a84c]/30" />
-        <span className="text-[10px] text-white/20 tracking-widest uppercase">Scroll</span>
-      </motion.div>
+        <span className="mono-label">Scroll</span>
+        <ArrowUpRight size={14} className="rotate-90" />
+      </motion.a>
     </section>
   );
 }

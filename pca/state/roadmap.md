@@ -11,6 +11,10 @@
 - [x] Fix bug hero invisible (useScroll sin target)
 - [x] Push a thequantpartners/quant-partners-landing
 - [x] PCA inicializado con contexto completo
+- [x] Rebrand completo navy + gold (fiel al logo)
+- [x] Logo real integrado en Navbar y Footer (next/image)
+- [x] Favicon automático vía src/app/icon.png
+- [x] Fix hero padding (pt-24 → pt-40)
 
 ## Pending
 - [ ] Conectar repo en Vercel para deploy

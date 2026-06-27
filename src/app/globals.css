@@ -6,6 +6,7 @@
   :root {
     --font-space-grotesk: "Space Grotesk", sans-serif;
     --font-inter: "Inter", sans-serif;
+    --font-jetbrains-mono: "JetBrains Mono", monospace;
     --gold: #c9a84c;
     --gold-bright: #e2c46e;
     --gold-dim: #a08535;
@@ -21,8 +22,12 @@
   body {
     background-color: #080c16;
     color: #ffffff;
-    font-family: var(--font-space-grotesk), var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-inter), system-ui, sans-serif;
     overflow-x: hidden;
+  }
+
+  .font-display {
+    font-family: var(--font-space-grotesk), system-ui, sans-serif;
   }
 
   ::selection {
@@ -137,5 +142,70 @@
   .divider-gold {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.3), transparent);
+  }
+
+  /* ── Editorial / quant primitives ───────────────────────── */
+
+  /* Plain hairline rule */
+  .hairline {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Directional gold hairline (fades to the right) */
+  .hairline-gold {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      rgba(201, 168, 76, 0.4) 0%,
+      rgba(201, 168, 76, 0.06) 100%
+    );
+  }
+
+  /* Vertical gold hairline (fades downward) */
+  .hairline-v {
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      rgba(201, 168, 76, 0.35) 0%,
+      rgba(201, 168, 76, 0.04) 100%
+    );
+  }
+
+  /* Big outlined index numbers (01 / 02 / 03) */
+  .text-stroke-gold {
+    -webkit-text-stroke: 1px rgba(201, 168, 76, 0.5);
+    color: transparent;
+  }
+
+  .text-stroke-faint {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+    color: transparent;
+  }
+
+  /* Faint technical grid that fades out at the edges */
+  .quant-grid {
+    background-image:
+      linear-gradient(rgba(201, 168, 76, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201, 168, 76, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 40%, #000 0%, transparent 78%);
+    mask-image: radial-gradient(ellipse 70% 65% at 50% 40%, #000 0%, transparent 78%);
+  }
+
+  /* Subtle dotted field for depth */
+  .quant-dots {
+    background-image: radial-gradient(rgba(201, 168, 76, 0.18) 1px, transparent 1px);
+    background-size: 28px 28px;
+    -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 50%, #000 0%, transparent 75%);
+    mask-image: radial-gradient(ellipse 60% 55% at 50% 50%, #000 0%, transparent 75%);
+  }
+
+  /* Tracked-out mono label */
+  .mono-label {
+    font-family: var(--font-jetbrains-mono), monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.7rem;
   }
 }

@@ -17,8 +17,8 @@ export function Footer() {
           />
         </div>
 
-        <p className="text-white/15 text-xs text-center">
-          © {new Date().getFullYear()} The Quant Partners. Sistemas de adquisición automatizada.
+        <p className="mono-label text-white/20 text-center">
+          © {new Date().getFullYear()} The Quant Partners · Sistemas de adquisición automatizada
         </p>
 
         <div className="flex items-center gap-6">
@@ -26,7 +26,7 @@ export function Footer() {
             <a
               key={item}
               href="#"
-              className="text-white/20 hover:text-[#c9a84c] text-xs transition-colors duration-200"
+              className="mono-label text-white/25 hover:text-[#c9a84c] transition-colors duration-200"
             >
               {item}
             </a>
